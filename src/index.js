@@ -8,7 +8,9 @@ const questionController = require("./controllers/question.controller.js");
 const answerController = require("./controllers/answer.controller.js");
 const commentController = require("./controllers/comment.controller.js");
 const postController = require("./controllers/post.controller.js");
+const logiController = require("./controllers/login.controller")
 
+app.use("/",logiController)
 app.use("/user", userController);
 app.use("/question", questionController);
 app.use("/answer", answerController);
