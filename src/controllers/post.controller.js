@@ -8,7 +8,7 @@ const crudController = require("./crud.controllers");
 router.get("", async(req, res) => {
     try{
         const post = await Post.find()
-        .populate({path: "user_id", select: { first_name: 1}})
+        .populate({path: "user_id", select: { first_name: 1,title:1}})
         .populate({path: "answer_id"})
         
         .lean().exec();
