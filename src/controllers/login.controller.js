@@ -1,4 +1,5 @@
 require("dotenv").config();
+const auth = require('../configs/middleware/auth')
 const express=require('express');
 const mongoose = require('mongoose');
 const cors = require('cors')
@@ -84,7 +85,7 @@ Router.post("/signin",(req,res)=>{
     })
 })
 
-router.post("/refreshtoken",async (req,res)=>{
+Router.post("/refreshtoken",async (req,res)=>{
     try {
         const rf_token = req.cookies.refreshtoken
         if(!rf_token) return res.status(400).json({error: "Please login now!"})
@@ -99,7 +100,7 @@ router.post("/refreshtoken",async (req,res)=>{
         return res.status(500).json({error: err.message})
     }
 })
-router.get("/userInfo",auth,async (req,res)=>{
+Router.get("/userInfo",auth,async (req,res)=>{
     try {
         const user = await User.findById(req.user.id).select('-password')
 
@@ -110,7 +111,7 @@ router.get("/userInfo",auth,async (req,res)=>{
 })
 
 
-router.get("/logout",(req,res)=>{
+Router.get("/logout",(req,res)=>{
     try {
         res.clearCookie('refreshtoken', {path: '/users/refresh_token'})
         return res.json({message: "Logged out."})
@@ -120,7 +121,7 @@ router.get("/logout",(req,res)=>{
 })
 
 
-router.post("/googlelogin",async (req,res)=>{
+Router.post("/googlelogin",async (req,res)=>{
     try {
         const {tokenId} = req.body
 
