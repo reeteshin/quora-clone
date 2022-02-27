@@ -17,8 +17,15 @@ Router.get("/protected",requiredLogin,(req,res)=>{
     res.send("hello user")
 
 })
+Router.get("/loggedinuser/:id",async (req,res)=>{
+    const data = await User.findById(req.params.id).exec()
+    console.log(data)
+    res.send(data)
+
+})
 Router.get("/loggedinuser",async (req,res)=>{
     const data = await User.find().lean().exec()
+   
     res.send(data)
 
 })
