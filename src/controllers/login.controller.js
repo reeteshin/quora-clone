@@ -23,8 +23,8 @@ Router.get("/loggedinuser",async (req,res)=>{
 
 })
 Router.post("/signup",(req,res)=>{
-    const {email,password}=req.body
-    if( !email || !password){
+    const { username,email,password}=req.body
+    if(  !username|| !email || !password){
         return res.status(412).json({error:"please fill all the fields"})
     }
     User.findOne({email:email}).then(userData=>{
@@ -34,6 +34,7 @@ Router.post("/signup",(req,res)=>{
         bcrypt.hash(password,12).then(hashedPassword=>{
             const user = new User({
               
+                username,
                 email,
                 password:hashedPassword
             })
